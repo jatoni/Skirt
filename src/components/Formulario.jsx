@@ -1,15 +1,48 @@
 
-
+import { useState } from "react";
+import Error from "./Error";
 const Formulario = () => {
+
+    const [login, setLogin] = useState({
+        correo: "",
+        password: ""
+    })
+    const [error, setError] = useState(false);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        const { correo, password } = login
+        if ([correo, password].includes('')) {
+            setError(true);
+            return;
+        }
+    }
+
+    
+
+    const showPassword = (e) => {
+        setError(false);
+        e.preventDefault();
+        e.target.type = "text";
+        setTimeout(() => {
+            e.target.type = "password"
+        }, 100);
+    }
+
+
     return (
-        <div className="md:w-1/2 lg:w-2/5 mx-5 mt-2">
+        <div className="md:w-1/2 lg:w-1/2 mx-5 mt-2">
             <h2 className="font-black text-3xl text-center">Inicio Sesion</h2>
             <p className="text-lg mt-5 text-center mb-10">
                 Inicie sesion para acceder al {""}
                 <span className="text-green-900">panel</span>
             </p>
-
+            {!error
+                ? null
+                : <Error>Todos los campos son obligatorios</Error>
+            }
             <form
+                onSubmit={handleSubmit}
                 className="bg-lime-200 shadow-md rounded-lg py-10 px-5 mb-10"
             >
                 <div className="mb-5">
@@ -19,7 +52,7 @@ const Formulario = () => {
                     <input
                         id="email"
                         name="email"
-                        placeholder="Input Your Email:"
+                        placeholder="Ingresa tu correo:"
                         className="w-full rounded-md p-2 outline-none"
                     />
                 </div>
@@ -31,9 +64,9 @@ const Formulario = () => {
                     <input
                         id="password"
                         name="password"
-                        type="password"
-                        placeholder="Input your password"
+                        placeholder="Ingresa tu contraseña"
                         className="w-full rounded-md p-2 outline-none"
+                        onInput={showPassword}
                     />
                 </div>
                 <input
