@@ -1,22 +1,59 @@
+import { useState } from "react";
+import Error from "./components/Error";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Table from "./components/Table";
 
 const App = () => {
-  sessionStorage.setItem('login', JSON.stringify({"correo":"juan"}));
-  console.log(sessionStorage.getItem('login'))
-  sessionStorage.removeItem("login")
+
+  const [error, setError] = useState(false);
+  const [usuario, setUsuario] = useState({})
+
+  const acceso = (email, password) => {
+    console.log("hola")
+    const url = "http://localhost:8080/Skirt/Login";
+    const data = {
+      "email": email,
+      "password": password
+    }
+    fetch(url, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then(data => {
+        if (data.codigo === 200) {
+          sessionStorage.setItem('codigo', JSON.stringify({ "codigo": data.codigo }));
+          setUsuario(JSON.parse(sessionStorage.getItem('codigo')).codigo)
+        } else {
+          setError(true);
+        }
+      })
+  }
+  
   return (
     <>
-      <Header />
-      { sessionStorage.getItem('login')
+      <Header 
+        usuario={usuario}
+      />
+      {JSON.parse(sessionStorage.getItem('codigo'))
         ?
         <>
           <Table />
         </>
         :
         <>
-          <Login />
+          {!error
+            ? null
+            : <Error>No son correctos sus datos</Error>}
+          <Login
+            acceso={acceso}
+          />
         </>}
 
     </>

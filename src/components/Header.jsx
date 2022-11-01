@@ -1,4 +1,6 @@
-const Header = () => {
+import CerrarSession from "./CerrarSession";
+
+const Header = ( { usuario }) => {
     return (
         <>
             <header className="w-full bg-white shadow-lg">
@@ -8,6 +10,9 @@ const Header = () => {
                         <span className="text-green-900">riego</span>
                     </h1>
                 </div>
+                <CerrarSession
+                    usuario={usuario}
+                />
             </header>
         </>
     )

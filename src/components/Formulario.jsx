@@ -1,34 +1,37 @@
-
 import { useState } from "react";
 import Error from "./Error";
-const Formulario = () => {
+const Formulario = ({ acceso }) => {
 
     const [login, setLogin] = useState({
-        correo: "",
+        email: "",
         password: ""
     })
     const [error, setError] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
-        const { correo, password } = login
-        if ([correo, password].includes('')) {
+        const { email, password } = login
+        if ([email, password].includes('')) {
             setError(true);
             return;
         }
-    }
-
-    
-
-    const showPassword = (e) => {
         setError(false);
-        e.preventDefault();
-        e.target.type = "text";
-        setTimeout(() => {
-            e.target.type = "password"
-        }, 100);
+        acceso(email, password)
     }
 
+    const handleChange = e => {
+        if (e.target.name !== "email") {
+            e.target.type = "text";
+            setTimeout(() => {
+                e.target.type = "password"
+            }, 100);
+        }
+        setError(false);
+        setLogin({
+            ...login,
+            [e.target.name]: e.target.value,
+        })
+    }
 
     return (
         <div className="md:w-1/2 lg:w-1/2 mx-5 mt-2">
@@ -52,8 +55,10 @@ const Formulario = () => {
                     <input
                         id="email"
                         name="email"
-                        placeholder="Ingresa tu correo:"
+                        placeholder="Ingresa tu correo"
                         className="w-full rounded-md p-2 outline-none"
+                        onChange={handleChange}
+                        login={login.email}
                     />
                 </div>
 
@@ -66,7 +71,8 @@ const Formulario = () => {
                         name="password"
                         placeholder="Ingresa tu contraseña"
                         className="w-full rounded-md p-2 outline-none"
-                        onInput={showPassword}
+                        onChange={handleChange}
+                        login={login.password}
                     />
                 </div>
                 <input

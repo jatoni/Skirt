@@ -1,10 +1,12 @@
 import Formulario from "./Formulario"
 import Registrar from "./Registrar"
-const Login = () => {
+const Login = ({ acceso }) => {
     return (
         <>
             <div className="mt-12 md:flex">
-                <Formulario />
+                <Formulario
+                    acceso={acceso}
+                />
                 <Registrar />
             </div>
         </>

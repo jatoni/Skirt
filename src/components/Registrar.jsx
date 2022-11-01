@@ -18,23 +18,23 @@ const Registrar = () => {
             setError(true);
             return;
         }
+        setError(false);
     }
 
     const quitMessage = (e) =>{
-        e.preventDefault();
         setError(false);
     }
 
     const showPassword = (e) => {
+        setError(false);
         e.target.type = "text";
         setTimeout(() => {
             e.target.type = "password"
         }, 100);
-        quitMessage();
     }
 
     return (
-        <div className="md:w-1/2 lg:w-3/5 bg-green-50">
+        <div className="md:w-1/2 lg:w-3/5 bg-green-50 border border-green-50">
             <h2 className="font-black text-3xl text-center">Registrarse</h2>
             <p className="text-lg mt-5 mb-10 text-center">Si no tiene una cuenta,{" "}
                 <span className="text-green-900">puedes crear tu cuenta</span></p>
