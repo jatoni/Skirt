@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.color-blanco{
+    background-color: white;
+    color: black;
+}
+.color-verde{
+    background-color: rgb(132 204 22);
+    color: rgb(20 83 45);
+}
+.container-p{
+    width: 10rem;
+    text-align: center;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    cursor: pointer;
+    transition: ease-in-out;
+    animation-duration: 500ms;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+}

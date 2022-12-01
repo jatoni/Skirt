@@ -1,4 +1,4 @@
-import CerrarSession from "./CerrarSession";
+
 
 const Header = ( { usuario }) => {
     return (
@@ -10,9 +10,6 @@ const Header = ( { usuario }) => {
                         <span className="text-green-900">riego</span>
                     </h1>
                 </div>
-                <CerrarSession
-                    usuario={usuario}
-                />
             </header>
         </>
     )
