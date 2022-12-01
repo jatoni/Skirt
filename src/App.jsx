@@ -2,12 +2,14 @@ import { useState } from "react";
 import Error from "./components/Error";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import Mensaje from "./components/Mensaje";
 import Table from "./components/Table";
 
 const App = () => {
 
   const [error, setError] = useState(false);
   const [usuario, setUsuario] = useState({})
+  const [mensaje, setMensaje] = useState("")
 
   const acceso = (email, password) => {
     console.log("hola")
@@ -34,6 +36,9 @@ const App = () => {
           setError(true);
         }
       })
+      .catch(() => {
+        setMensaje("No funciona el servidor");
+      })
   }
   
   return (
@@ -50,7 +55,7 @@ const App = () => {
         <>
           {!error
             ? null
-            : <Error>No son correctos sus datos</Error>}
+            : <Error>No son correctos sus datos o <Mensaje>{mensaje}</Mensaje></Error>}
           <Login
             acceso={acceso}
           />
