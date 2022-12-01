@@ -34,15 +34,15 @@ const Registrar = () => {
     }
 
     return (
-        <div className="md:w-1/2 lg:w-3/5 bg-green-50 border border-green-50">
+        <div className="md:w-1/2 lg:w-1/2 bg-green-50 border border-green-50 m-auto">
             <h2 className="font-black text-3xl text-center">Registrarse</h2>
             <p className="text-lg mt-5 mb-10 text-center">Si no tiene una cuenta,{" "}
                 <span className="text-green-900">puedes crear tu cuenta</span></p>
 
-            <div className="md:h-screen">
+            <div className="mb-10">
                 <form
                     onSubmit={handleSubmit}
-                    className="w-11/12 bg-lime-200 shadow-md rounded-lg mx-auto py-10 px-5 mb-10"
+                    className="w-11/12 bg-lime-200 shadow-md rounded-lg mx-auto py-10 px-5"
                 >
                     {!error
                         ? null
