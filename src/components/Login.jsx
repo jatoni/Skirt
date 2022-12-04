@@ -40,14 +40,15 @@ const Formulario = ({ acceso }) => {
                 Inicie sesion para acceder al {""}
                 <span className="text-green-900">panel</span>
             </p>
-            {!error
-                ? null
-                : <Error>Todos los campos son obligatorios</Error>
-            }
+
             <form
                 onSubmit={handleSubmit}
                 className="w-11/12 bg-lime-200 shadow-md rounded-lg py-10 px-5 mb-10 mx-auto"
             >
+                {!error
+                    ? null
+                    : <Error>Todos los campos son obligatorios</Error>
+                }
                 <div className="mb-5">
                     <label htmlFor="email" className="block text-xl text-lime-700 uppercase font-bold hover:cursor-pointer">
                         Email
