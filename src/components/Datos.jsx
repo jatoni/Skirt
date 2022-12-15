@@ -4,8 +4,8 @@ import "react-circular-progressbar/dist/styles.css"
 
 const Datos = ({ usuario }) => {
     return (
-        <div className="contenedor contenedor-presupuesto sombra">
-            <div>
+        <div className="contenedor contenedor-presupuesto sombra md:w-1/2">
+            <div className="">
                 <CircularProgressbar
                     value={30}
                     text={"20% AGUA"}
