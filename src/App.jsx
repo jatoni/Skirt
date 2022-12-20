@@ -7,10 +7,22 @@ import Registrar from "./components/Registrar"
 const App = () => {
 
   const [error, setError] = useState(false);
-  const [usuario, setUsuario] = useState({})
   const [mensaje, setMensaje] = useState("")
   const [opciones, setOpciones] = useState(false);
-  
+
+  const logIn = async (data) => {
+    const url = "http://localhost:8080/Skirt/Login";
+    const respuesta = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+    const resultado = await respuesta.json();
+    console.log(resultado);
+  }
+
   return (
     <div>
       <Header />
@@ -19,12 +31,14 @@ const App = () => {
         opciones={opciones}
       />
       <div className="w-full">
-          {
-            opciones ?
+        {
+          opciones ?
             (<Registrar />)
             :
-            (<Login />)
-          }
+            (<Login
+              logIn={logIn}
+            />)
+        }
       </div>
     </div>
 
