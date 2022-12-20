@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Error from "./Error";
-const Formulario = ({ acceso }) => {
+const Formulario = ({ logIn}) => {
 
     const [login, setLogin] = useState({
         email: "",
@@ -16,7 +16,7 @@ const Formulario = ({ acceso }) => {
             return;
         }
         setError(false);
-        acceso(email, password)
+        logIn(login);
     }
 
     const handleChange = e => {
