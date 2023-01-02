@@ -3,12 +3,14 @@ import Header from "./components/Header";
 import Opciones from "./components/Opciones";
 import Login from "./components/Login"
 import Registrar from "./components/Registrar"
+import Datos from "./components/Datos"
+import Error from "./components/Error";
 
 const App = () => {
-
-  const [error, setError] = useState(false);
   const [mensaje, setMensaje] = useState("")
   const [opciones, setOpciones] = useState(false);
+  const [log, setLog] = useState(false);
+  const [error, setError] = useState(false);
 
   const logIn = async (data) => {
     const url = "http://localhost:8080/Skirt/Login";
@@ -20,28 +22,50 @@ const App = () => {
       body: JSON.stringify(data)
     });
     const resultado = await respuesta.json();
-    console.log(resultado);
+    const { codigo, mensaje } = resultado;
+    if (codigo === 200) {
+      setLog(true);
+      setMensaje(mensaje);
+      return;
+    }else{
+      setError(true);
+    }
+
   }
 
   return (
     <div>
       <Header />
-      <Opciones
-        setOpciones={setOpciones}
-        opciones={opciones}
-      />
-      <div className="w-full">
-        {
-          opciones ?
-            (<Registrar />)
-            :
-            (<Login
-              logIn={logIn}
-            />)
-        }
-      </div>
+      {!log || !mensaje ?
+        <>
+          <Opciones
+            setOpciones={setOpciones}
+            opciones={opciones}
+          />
+          <div className="w-full">
+            {
+              opciones ?
+                (<Registrar />)
+                :
+                (
+                  <>
+                    {error &&
+                      <Error>Email or Password incorrectos</Error>
+                    }
+                    <Login
+                      logIn={logIn}
+                    />
+                  </>
+                )
+            }
+          </div>
+        </>
+        :
+        <Datos
+          mensaje={mensaje}
+        />
+      }
     </div>
-
   )
 }
 
