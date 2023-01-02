@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Error from "./Error";
-const Registrar = () => {
+const Registrar = ({ registarUsuario, usuarioCreado}) => {
 
     const [registro, setRegistro] = useState({
         nombre: "",
@@ -19,9 +19,27 @@ const Registrar = () => {
             return;
         }
         setError(false);
+        registarUsuario(registro);
+        if (usuarioCreado) {
+            setRegistro({
+                nombre: "",
+                apellidos: "",
+                usuario: "",
+                correo: "",
+                password: "",
+            });
+
+        }
     }
 
-    const quitMessage = (e) =>{
+    const handleChange = e => {
+        setRegistro({
+            ...registro,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    const quitMessage = (e) => {
         setError(false);
     }
 
@@ -58,6 +76,8 @@ const Registrar = () => {
                             placeholder="Ingresa tu nombre:"
                             className="w-full rounded-md p-2 outline-none"
                             onInput={quitMessage}
+                            onChange={handleChange}
+                            registro={registro.nombre}
                         />
                     </div>
                     <div className="mb-5">
@@ -70,6 +90,8 @@ const Registrar = () => {
                             placeholder="Ingresa tu apellido:"
                             className="w-full rounded-md p-2 outline-none"
                             onInput={quitMessage}
+                            onChange={handleChange}
+                            registro={registro.apellidos}
                         />
                     </div>
                     <div className="mb-5">
@@ -82,6 +104,8 @@ const Registrar = () => {
                             placeholder="Ingresa tu nombre de usuario"
                             className="w-full rounded-md p-2 outline-none"
                             onInput={quitMessage}
+                            onChange={handleChange}
+                            registro={registro.usuario}
                         />
                     </div>
                     <div className="mb-5">
@@ -94,6 +118,8 @@ const Registrar = () => {
                             placeholder="Ingresa tu correo"
                             className="w-full rounded-md p-2 outline-none"
                             onInput={quitMessage}
+                            onChange={handleChange}
+                            registro={registro.correo}
                         />
                     </div>
                     <div className="mb-5">
@@ -107,6 +133,8 @@ const Registrar = () => {
                             placeholder="Ingresa tu nombre de contraseña"
                             className="w-full rounded-md p-2 outline-none"
                             onInput={showPassword}
+                            onChange={handleChange}
+                            registro={registro.password}
                         />
                     </div>
                     <input
