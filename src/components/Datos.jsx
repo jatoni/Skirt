@@ -2,7 +2,7 @@ import Dato from "./Dato"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import "react-circular-progressbar/dist/styles.css"
 
-const Datos = ({ usuario }) => {
+const Datos = ({ mensaje }) => {
     return (
         <div className="contenedor contenedor-presupuesto sombra md:w-1/2">
             <div className="">
@@ -20,7 +20,7 @@ const Datos = ({ usuario }) => {
             </div>
 
             <div className="flex flex-col">
-                <p>Nombre de usuario</p>
+                <p>Nombre de usuario:{" "}<span className="text-green-900 font-mono font-bold text-xl">{mensaje}</span></p>
                 <p>Humedad de tierra</p>
                 <p>Cantidad de veces que se riega el al dia</p>
             </div>
