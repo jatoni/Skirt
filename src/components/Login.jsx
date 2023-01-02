@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Error from "./Error";
-const Formulario = ({ logIn}) => {
+import Mensaje from "./Mensaje";
+
+const Formulario = ({ logIn, mensaje }) => {
 
     const [login, setLogin] = useState({
         email: "",
@@ -17,6 +19,12 @@ const Formulario = ({ logIn}) => {
         }
         setError(false);
         logIn(login);
+        setLogin(
+            {
+                email: "",
+                password: ""
+            }
+        );
     }
 
     const handleChange = e => {
@@ -45,6 +53,9 @@ const Formulario = ({ logIn}) => {
                 onSubmit={handleSubmit}
                 className="w-11/12 bg-lime-200 shadow-md rounded-lg py-10 px-5 mb-10 mx-auto"
             >
+                {mensaje &&
+                    <Mensaje>{mensaje}</Mensaje>
+                }
                 {!error
                     ? null
                     : <Error>Todos los campos son obligatorios</Error>

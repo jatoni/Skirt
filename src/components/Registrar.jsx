@@ -1,5 +1,9 @@
 import { useState } from "react";
 import Error from "./Error";
+import Mensaje from "./Mensaje";
+
+
+
 const Registrar = ({ registarUsuario, usuarioCreado}) => {
 
     const [registro, setRegistro] = useState({
