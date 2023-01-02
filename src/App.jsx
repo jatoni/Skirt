@@ -1,16 +1,15 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Opciones from "./components/Opciones";
-import Login from "./components/Login"
-import Registrar from "./components/Registrar"
+import Login from "./components/Login";
+import Registrar from "./components/Registrar";
+import Mensaje from "./components/Mensaje"
 import Datos from "./components/Datos"
 import Error from "./components/Error";
 
 const App = () => {
   const [mensaje, setMensaje] = useState("")
   const [opciones, setOpciones] = useState(false);
-  const [log, setLog] = useState(false);
-  const [error, setError] = useState(false);
 
   const logIn = async (data) => {
     const url = "http://localhost:8080/Skirt/Login";
@@ -33,38 +32,41 @@ const App = () => {
 
   }
 
+  const registarUsuario = async (data) => {
+    const url = "http://localhost:8080/Skirt/Create";
+    const respuesta = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+    const resultado = await respuesta.json();
+    if (resultado.codigo == 200) {
+      setUsuarioCreado(true);
+      setMensaje(`${resultado.mensaje}`)
+    } else {
+      setUsuarioCreado(false);
+    }
+  }
+
   return (
     <div>
       <Header />
-      {!log || !mensaje ?
-        <>
-          <Opciones
-            setOpciones={setOpciones}
-            opciones={opciones}
-          />
-          <div className="w-full">
-            {
-              opciones ?
-                (<Registrar />)
-                :
-                (
-                  <>
-                    {error &&
-                      <Error>Email or Password incorrectos</Error>
-                    }
-                    <Login
-                      logIn={logIn}
-                    />
-                  </>
-                )
-            }
-          </div>
-        </>
-        :
-        <Datos
-          mensaje={mensaje}
-        />
-      }
+      <Opciones
+        setOpciones={setOpciones}
+        opciones={opciones}
+      />
+      <div className="w-full">
+        {
+          opciones ?
+            (<Registrar />)
+            :
+            (<Login
+              logIn={logIn}
+            />)
+        }
+      </div>
     </div>
   )
 }
