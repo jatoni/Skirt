@@ -4,13 +4,12 @@ import Opciones from "./components/Opciones";
 import Login from "./components/Login";
 import Registrar from "./components/Registrar";
 import Mensaje from "./components/Mensaje"
+import Datos from "./components/Datos"
+import Error from "./components/Error";
 
 const App = () => {
-
-  const [error, setError] = useState(false);
   const [mensaje, setMensaje] = useState("")
   const [opciones, setOpciones] = useState(false);
-  const [usuarioCreado, setUsuarioCreado] = useState(false);
 
   const logIn = async (data) => {
     const url = "http://localhost:8080/Skirt/Login";
@@ -22,7 +21,15 @@ const App = () => {
       body: JSON.stringify(data)
     });
     const resultado = await respuesta.json();
-    console.log(resultado);
+    const { codigo, mensaje } = resultado;
+    if (codigo === 200) {
+      setLog(true);
+      setMensaje(mensaje);
+      return;
+    }else{
+      setError(true);
+    }
+
   }
 
   const registarUsuario = async (data) => {
@@ -53,13 +60,7 @@ const App = () => {
       <div className="w-full">
         {
           opciones ?
-            (<>
-              {mensaje && <Mensaje>{mensaje}</Mensaje>}
-              <Registrar
-                registarUsuario={registarUsuario}
-                usuarioCreado={usuarioCreado} setMensaje={setMensaje}
-              />
-            </>)
+            (<Registrar />)
             :
             (<Login
               logIn={logIn}
@@ -67,7 +68,6 @@ const App = () => {
         }
       </div>
     </div>
-
   )
 }
 
